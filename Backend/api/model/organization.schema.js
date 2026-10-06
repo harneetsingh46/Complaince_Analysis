@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 import { randomUUID } from "crypto";
-import { type } from "os";
 
 const companySchema = new mongoose.Schema(
   {
@@ -35,9 +34,9 @@ const companySchema = new mongoose.Schema(
         lowercase: true,
         trim: true,
       },
-      phoneNumber: String,
-      website: String,
     },
+    phoneNumber: String,
+    website: String,
     // system fields
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,
@@ -45,7 +44,7 @@ const companySchema = new mongoose.Schema(
     },
     isActive: {
       type: Boolean,
-      required: true,
+      default: true,
     },
     deletedAt: {
       type: Date,
