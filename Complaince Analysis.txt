@@ -1,0 +1,22 @@
+Complaince Analysis (Rules And Policies)
+
+1. Role Based Routing. [admin,users(organization/companies))
+2. Tenant.
+3. DataBase
+mongoDB --> stored info	
+vercterDB --> predicted info
+4.material Ui
+
+middleware is a function which handle and controls the req/res cycle.
+
+
+
+THINGS TO LEARN JS
+Event Loop
+Hoisting
+higher-order function
+callback function
+closure
+cookie
+bearer
+Promise are the function that has phase pending,resolve,rejected

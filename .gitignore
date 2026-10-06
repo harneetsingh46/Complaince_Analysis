@@ -1,0 +1,113 @@
+# ==========================================
+# SENSITIVE DATA & SECRETS
+# ==========================================
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+!.env.template
+
+# API keys, tokens, and local config files
+*.env
+*.secret
+*.secrets
+*.pem
+*.key
+*.pkcs12
+*.pfx
+*.p12
+*.crt
+*.csr
+*.cer
+*.jks
+*.keystore
+*.kdb
+*.ppk
+
+# Master keys & credentials
+credentials.json
+client_secret*.json
+service-account*.json
+jwt.key
+id_rsa
+id_rsa.pub
+id_ed25519
+id_ed25519.pub
+
+# Database configuration & local data
+*.sqlite
+*.sqlite3
+*.db
+*.db-shm
+*.db-wal
+config/database.yml
+!config/database.yml.example
+/data/*.db
+
+# ==========================================
+# FRAMEWORK & LANGUAGE SECRETS
+# ==========================================
+# Node.js / React / Next.js
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Python / Django / Flask
+local_settings.py
+secrets.py
+secrets.json
+instance/
+.webassets-cache
+
+# Java / Spring Boot
+application-local.properties
+application-local.yml
+application-dev.yml
+application-prod.yml
+
+# PHP / Laravel
+.env.backup
+.env.production
+
+# Ruby on Rails
+config/initializers/secret_token.rb
+config/master.key
+config/credentials/*.yml.enc
+
+# ==========================================
+# IDE & LOCAL EDITOR CONFIGS
+# ==========================================
+# VS Code (User secrets/launch settings)
+.vscode/settings.json
+.vscode/launch.json
+.vscode/state.json
+
+# JetBrains (IntelliJ, WebStorm, PyCharm)
+.idea/dataSources.xml
+.idea/dataSources.local.xml
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/usage.statistics.xml
+
+# Xcode / Apple
+*.mode1v3
+*.mode2v3
+*.moved-aside
+*.pbxuser
+*.perspectivev3
+xcuserdata/
+
+# ==========================================
+# SYSTEM & OS TEMP FILES
+# ==========================================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
