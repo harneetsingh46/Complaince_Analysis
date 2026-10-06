@@ -6,6 +6,6 @@ const router = express.Router();
 
 router.post("/create-company", protect, createCompany);
 router.get("/get-companies",protect,getCompanies)
-router.get("/get-company",protect,getOneCompany)
+router.get("/get/:id",protect,getOneCompany)
 
 export default router;

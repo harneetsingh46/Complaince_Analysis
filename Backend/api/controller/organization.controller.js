@@ -67,7 +67,8 @@ export const getCompanies = async (req, res, next) => {
 
 export const getOneCompany = async (req, res, next) => {
   try {
-    const company = await Company.findOne({ createdBy: req.user.id });
+    const {id} = req.params;
+    const company = await Company.findById(id);
     if (!company) {
       return res.status(400).json({
         message: "No Company Found !",
