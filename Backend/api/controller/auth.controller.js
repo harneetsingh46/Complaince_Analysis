@@ -4,7 +4,7 @@ import bcrypt from "bcryptjs";
 export const registerUser = async (req, res, next) => {
   try {
     const { username, email, password, role } = req.body;
-    if (!username || !email || !password || !role) {
+    if (!username || !email || !password) {
       return res.status(400).json({
         message: "All fields are required !",
       });

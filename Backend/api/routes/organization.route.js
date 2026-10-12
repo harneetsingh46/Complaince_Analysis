@@ -4,7 +4,7 @@ import { createCompany, getCompanies, getOneCompany } from "../controller/organi
 
 const router = express.Router();
 
-router.post("/create-company", protect, createCompany);
+router.post("/create-organization", protect, createCompany);
 router.get("/get-companies",protect,getCompanies)
 router.get("/get/:id",protect,getOneCompany)
 
