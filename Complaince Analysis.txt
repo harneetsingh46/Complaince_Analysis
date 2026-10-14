@@ -17,6 +17,11 @@ Hoisting
 higher-order function
 callback function
 closure
-cookie
-bearer
 Promise are the function that has phase pending,resolve,rejected
+callback-hell
+Diff b/w async/await and Promise
+De-bouncing
+coersion
+diff b/w map,filter,reduce,foreach
+lexcial-scope
+
