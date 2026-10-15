@@ -4,6 +4,7 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import authRouter from "./api/routes/auth.route.js";
 import orgRouter from "./api/routes/organization.route.js"
+import productRouter from "./api/routes/product.route.js"
 const app = express();
 dotenv.config();
 
@@ -20,7 +21,8 @@ app.use(express.json());
 app.use(cookieParser());
 
 //routes
-app.use("/authRouter", authRouter);
-app.use("/orgRouter",orgRouter)
+app.use("/auth", authRouter);
+app.use("/organization",orgRouter)
+app.use("/product",productRouter)
 
 export default app;

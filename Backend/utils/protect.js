@@ -39,6 +39,7 @@ export const isAdmin = async (req, res, next) => {
     });
   }
 };
+
 export const isUser = async (req, res, next) => {
   try {
     if (req.user.role !== "user") {
