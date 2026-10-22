@@ -15,13 +15,15 @@
     "@mui/icons-material": "^9.5.0",
     "@mui/material": "^9.5.0",
     "@mui/styled-engine-sc": "^9.5.0",
+    "@tailwindcss/vite": "^4.3.3",
     "@toolpad/core": "^0.16.0",
     "axios": "^1.20.0",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
     "react-is": "^18.3.1",
     "react-router-dom": "^7.18.4",
-    "styled-components": "^6.6.0"
+    "styled-components": "^6.6.0",
+    "tailwindcss": "^4.3.3"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

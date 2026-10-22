@@ -2,9 +2,13 @@ import { AppProvider } from "@toolpad/core/AppProvider";
 import { DashboardLayout } from "@toolpad/core/DashboardLayout";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { GetNavigation } from "./GetNavigation";
+import { useAuth } from "../context/AuthContext";
 
 function Layout() {
-  const NAVIGATION = GetNavigation();
+
+  const { isAuthenticated } = useAuth();
+  
+  const NAVIGATION = GetNavigation(isAuthenticated);
 
   const location = useLocation();
 

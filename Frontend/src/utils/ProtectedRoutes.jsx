@@ -10,8 +10,8 @@ const ProtectedRoutes = () => {
             </>
         )
     }
-    if (isAuthenticated) {
-        return <Navigate to="/sigin" replace={true} />
+    if (!isAuthenticated) {
+        return <Navigate to="/signin" replace={true} />
     }
     return <Outlet />
 }

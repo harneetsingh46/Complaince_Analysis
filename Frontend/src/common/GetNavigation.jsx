@@ -4,12 +4,14 @@ import CorporateFareIcon from '@mui/icons-material/CorporateFare';
 import AssessmentIcon from '@mui/icons-material/Assessment';
 import LoginIcon from '@mui/icons-material/Login';
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 
-export const GetNavigation = () => [
+export const GetNavigation = (isAuthenticated) => [
     {
         kind: 'header',
         title: 'Main items',
     },
+
     {
         segment: 'dashboard',
         title: 'Dashboard',
@@ -33,15 +35,26 @@ export const GetNavigation = () => [
     {
         kind: 'divider',
     },
-    {
-        segment: 'signin',
-        title: 'Signin',
-        icon: <LoginIcon />,
-    },
-    {
-        segment: 'signup',
-        title: 'Signup',
-        icon: <AppRegistrationIcon />,
-    },
-]
-
+    ...(
+        !isAuthenticated
+            ? [
+                {
+                    segment: 'signin',
+                    title: 'Signin',
+                    icon: <LoginIcon />,
+                },
+                {
+                    segment: 'signup',
+                    title: 'Signup',
+                    icon: <AppRegistrationIcon />,
+                },
+            ]
+            : [
+                {
+                    segment: 'sign-out',
+                    title: 'Signout',
+                    icon: <ExitToAppIcon />,
+                },
+            ]
+    ),
+];

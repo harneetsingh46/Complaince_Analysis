@@ -1,4 +1,5 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { AuthProvider } from "./context/AuthContext";
 import Layout from "./common/Layout";
 import Hero from "./pages/Hero";
 import Signup from "./pages/auth/Signup"
@@ -9,6 +10,7 @@ import Reports from "./pages/Reports";
 import Signin from "./pages/auth/Signin";
 import ProtectedRoutes from "./utils/ProtectedRoutes";
 import Signout from "./pages/auth/Signout";
+import PublicRoutes from "./utils/PublicRoutes";
 
 const App = () => {
   const router = createBrowserRouter([
@@ -17,17 +19,23 @@ const App = () => {
       element: <Layout />,
       children: [
         {
-          path: "/",
-          element: <Hero />
+          element: <PublicRoutes />,
+          children: [
+            {
+              path: "/",
+              element: <Hero/>
+            },
+            {
+              path: "/signin",
+              element: <Signin />
+            },
+            {
+              path: "/signup",
+              element: <Signup />
+            },
+          ]
         },
-        {
-          path: "/signin",
-          element: <Signin />
-        },
-        {
-          path: "/signup",
-          element: <Signup />
-        },
+
         {
           element: <ProtectedRoutes />,
           children: [
@@ -48,7 +56,7 @@ const App = () => {
               element: <Reports />
             },
             {
-              path: "/signout",
+              path: "/sign-out",
               element: <Signout />
             }
           ]
@@ -58,7 +66,9 @@ const App = () => {
   ]);
   return (
     <>
-      <RouterProvider router={router} />
+      <AuthProvider>
+        <RouterProvider router={router} />
+      </AuthProvider>
     </>
   );
 };
