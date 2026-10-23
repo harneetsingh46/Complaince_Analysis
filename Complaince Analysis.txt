@@ -24,4 +24,13 @@ De-bouncing
 coersion
 diff b/w map,filter,reduce,foreach
 lexcial-scope
+prototype
+diff arrow/normal/anomous
 
+
+REACT
+props-drilling
+how useState works
+
+backend
+cors
