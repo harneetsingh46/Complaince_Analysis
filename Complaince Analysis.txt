@@ -34,3 +34,12 @@ how useState works
 
 backend
 cors
+
+
+
+duplicacy of tenant in same but in diff owner it is feasible to register a tenant with same details,
+when tenant is movedOut then it will get registered by another owner ,
+document shloud be uploaded/ downloaded with respect to tenant,
+
+
+compress the cloudinary...

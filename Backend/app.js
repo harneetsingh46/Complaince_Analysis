@@ -5,6 +5,7 @@ import cookieParser from "cookie-parser";
 import authRouter from "./api/routes/auth.route.js";
 import orgRouter from "./api/routes/organization.route.js"
 import productRouter from "./api/routes/product.route.js"
+import frameworkRouter from "./api/routes/framework.route.js"
 const app = express();
 dotenv.config();
 
@@ -24,5 +25,6 @@ app.use(cookieParser());
 app.use("/auth", authRouter);
 app.use("/organization",orgRouter)
 app.use("/product",productRouter)
+app.use("/framework",frameworkRouter)
 
 export default app;
