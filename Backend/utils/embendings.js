@@ -5,6 +5,12 @@ dotenv.config();
 
 const hf = new HfInference(process.env.HUGGING_FACE_KEY);
 
+/**
+ * 
+ * @param {String} 
+ * @returns {Promise<number[]>}
+ */
+
 export const generateEmbending = async (text) => {
   try {
     const response = await hf.featureExtraction({
