@@ -1,4 +1,9 @@
+import { randomUUID } from "crypto";
 import { Framework } from "../model/framework.schema.js";
+import { generateEmbedding } from "../../utils/embendings.js";
+import { chunkFramework } from "../../utils/chunking.js";
+import qdrantClient from "../../config/qdrant.js";
+
 export const createFramework = async (req, res, next) => {
   try {
     const {
@@ -18,27 +23,24 @@ export const createFramework = async (req, res, next) => {
       !description ||
       !authority ||
       !country ||
+      !version ||
       !industry ||
       !appliesTo ||
       !controls
     ) {
       return res.status(400).json({
-        message: "All fields are required !",
+        message: "All fields are required",
       });
     }
-
     const findFramework = {
       $or: [{ shortCode }, { version }],
     };
-
-    const isFrameworkExists = await Framework.findOne(findFramework);
-
-    if (isFrameworkExists) {
+    const IsframeworkExist = await Framework.findOne(findFramework);
+    if (IsframeworkExist) {
       return res.status(400).json({
-        message: "Framework already exists !",
+        message: "Framework already exists",
       });
     }
-
     const framework = await Framework.create({
       name,
       shortCode,
@@ -49,34 +51,64 @@ export const createFramework = async (req, res, next) => {
       industry,
       appliesTo,
       controls,
-      createdBy: req.user._id,
+      createdBy: req.user.id,
     });
-    return res.status(200).json({
-      message: "Framework Created Successfully !",
+
+    //vector db part
+    try {
+      const chunks = await chunkFramework(framework);
+
+      for (const chunk of chunks) {
+        const vector = await generateEmbedding(chunk.text);
+
+        if (!Array.isArray(vector) || vector.length !== 384) {
+          throw new Error("Invalid embedding vector");
+        }
+
+        await qdrantClient.upsert("frameworks", {
+          wait: true,
+          points: [
+            {
+              id: randomUUID(),
+              vector,
+              payload: {
+                text: chunk.text,
+                ...chunk.metadata,
+              },
+            },
+          ],
+        });
+      }
+
+      console.log("Framework successfully stored in Qdrant");
+    } catch (vectorErr) {
+      console.log(vectorErr);
+      console.error("Failed to save in vector DB:");
+    }
+    return res.status(201).json({
       data: framework,
     });
-  } catch (error) {
+  } catch (err) {
     return res.status(500).json({
-      message: error.message,
+      message: err.message,
     });
   }
 };
 
 export const getFramework = async (req, res, next) => {
   try {
-    const framework = await Framework.find({ isActive:true });
-    if (framework.lenth === 0) {
+    const framework = await Framework.find({ isActive: true });
+    if (!framework || framework.length === 0) {
       return res.status(400).json({
-        message: "No Framework Found!",
+        message: "No framework Exists",
       });
     }
     return res.status(200).json({
-      message: "Framework(s) Fetched Successfully !",
       data: framework,
     });
-  } catch (error) {
+  } catch (err) {
     return res.status(500).json({
-      message: error.message,
+      message: err.message,
     });
   }
 };

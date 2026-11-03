@@ -1,24 +1,46 @@
-import { HfInference } from "@huggingface/inference";
-import dotenv from "dotenv";
+import { pipeline, env } from "@huggingface/transformers";
 
-dotenv.config();
+env.allowLocalModels = true;
 
-const hf = new HfInference(process.env.HUGGING_FACE_KEY);
+let embeddingPipeline = null;
 
-/**
- * 
- * @param {String} 
- * @returns {Promise<number[]>}
- */
+const getEmbeddingPipeline = async () => {
+  if (!embeddingPipeline) {
+    console.log("Loading local embedding model...");
 
-export const generateEmbending = async (text) => {
+    embeddingPipeline = await pipeline(
+      "feature-extraction",
+      "Xenova/all-MiniLM-L6-v2",
+    );
+
+    console.log("Embedding model loaded successfully");
+  }
+
+  return embeddingPipeline;
+};
+
+export const generateEmbedding = async (text) => {
   try {
-    const response = await hf.featureExtraction({
-      model: "sentence-transformers/all-MiniLM-L6-v2",
-      inputs: text,
+    if (!text || typeof text !== "string") {
+      throw new Error("Embedding input must be a non-empty string");
+    }
+
+    const extractor = await getEmbeddingPipeline();
+
+    const result = await extractor(text, {
+      pooling: "mean",
+      normalize: true,
     });
-    return response;
+
+    const vector = Array.from(result.data);
+
+    if (vector.length !== 384) {
+      throw new Error(`Expected 384 dimensions, received ${vector.length}`);
+    }
+
+    return vector;
   } catch (error) {
-    console.log("Error while generating Embendings", error);
+    console.error("Embedding generation failed:", error.message);
+    throw error;
   }
 };

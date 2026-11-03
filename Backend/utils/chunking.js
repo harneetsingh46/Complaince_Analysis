@@ -2,16 +2,21 @@ export const chunkFramework = async (framework) => {
   const chunks = [];
 
   if (!framework.controls || framework.controls.length === 0) {
-    // we will make our own text
-    const text = `Framework : ${framework.name} (${framework.shortCode}) 
-    Description : ${framework.description} || No Description Provided
-    Authority : ${framework.authority} || N/A`;
+    const text = `
+Framework: ${framework.name} (${framework.shortCode})
+
+Description: ${framework.description || "N/A"}
+Authority: ${framework.authority || "N/A"}
+Country: ${framework.country || "N/A"}
+Industry: ${framework.industry || "N/A"}
+Version: ${framework.version || "1.0"}
+`;
 
     chunks.push({
       text,
       metadata: {
         frameworkID: framework._id.toString(),
-        frameworkuuid: framework.uuid,
+        frameworkUUID: framework.uuid,
         frameworkName: framework.name,
         shortCode: framework.shortCode,
         isGeneralDescription: true,
@@ -22,23 +27,36 @@ export const chunkFramework = async (framework) => {
   }
 
   framework.controls.forEach((control) => {
-    // we will push real controlls
-    const text = `Framework : ${framework.name} (${framework.shortCode}) 
-    controlID : ${control.controlID} - ${control.title}
-    requiremntText: ${control.requiremntText} || N/A
-    description: ${control.description} || N/A
-    riskLevel: ${control.riskLevel}
-    mandatory: ${control.mandatory ? "YES" : "NO"}
-    tags: ${control.tags && control.tags.lenght > 0 ? control.tags.join(" , ") : "None"}`;
+    const text = `
+Framework: ${framework.name} (${framework.shortCode})
+
+Control ID: ${control.controlId || "N/A"}
+Title: ${control.title || "N/A"}
+
+Requirement:
+${control.requirementText || "N/A"}
+
+Description:
+${control.description || "N/A"}
+
+Risk Level: ${control.riskLevel || "medium"}
+Mandatory: ${control.mandatory ? "YES" : "NO"}
+
+Tags: ${control.tags?.length ? control.tags.join(", ") : "None"}
+`;
 
     chunks.push({
       text,
       metadata: {
-        frameworkcontrolID: control.controlID,
+        frameworkControlID: control.controlId,
         frameworkID: framework._id.toString(),
-        frameworkuuid: framework.uuid,
+        frameworkUUID: framework.uuid,
         frameworkName: framework.name,
         shortCode: framework.shortCode,
+        controlTitle: control.title,
+        riskLevel: control.riskLevel,
+        mandatory: control.mandatory,
+        tags: control.tags || [],
       },
     });
   });
