@@ -46,3 +46,24 @@ compress the cloudinary...
 
 
 grok api for report generation
+
+
+
+
+
+
+
+
+tenant history page
+tenant move out request if all bills are paid then move-out successful if not then message will be pay all bills
+
+
+
+
+
+
+Razorpay Test Mastercard
+Official test card
+
+5555 5100 0008 1006
+CVV: 123 · Expiry: 12/28
